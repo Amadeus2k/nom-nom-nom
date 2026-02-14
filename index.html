@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For you ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #141e30, #243b55);
+    font-family: 'Georgia', serif;
+}
+
+.card {
+    max-width: 750px;
+    padding: 60px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 40px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    color: white;
+    text-align: center;
+    animation: fadeUp 1.5s ease forwards;
+    opacity: 0;
+}
+
+h1 {
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+}
+
+#text {
+    min-height: 40px;
+    line-height: 1.8;
+    font-size: 35px;
+    transition: opacity 1s ease;
+
+}
+
+button {
+    margin-top: 40px;
+    padding: 12px 35px;
+    border-radius: 50px;
+    border: none;
+    background: linear-gradient(45deg, #ff4e50, #fc913a);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: translateY(-3px);
+}
+
+@keyframes fadeUp {
+    from {
+        transform: translateY(40px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.music-player {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    padding: 15px 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    font-size: 14px;
+}
+
+.song-info span {
+    font-size: 20px;
+    opacity: 0.7;
+}
+
+.music-player button {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(45deg, #ff4e50, #fc913a);
+    color: white;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.music-player button:hover {
+    transform: scale(1.1);
+}
+
+
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1 id="title"></h1>
+    <div id="text"></div>
+    <button onclick="nextMessage()">Next :3</button>
+</div>
+
+<div class="music-player" id="player">
+    <div class="song-info">
+        <strong> &lt;3</strong><br>
+        <span>uaco</span>
+    </div>
+
+    <button onclick="toggleMusic()" id="musicBtn">▶</button>
+
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+</div>
+
+
+<script>
+
+// this what he will see
+const data = {
+    title: "❤️Happy Valentine's Day❤️",
+    pages: [
+        "Happy Valentine’s Day, my love",
+        "You are the best person I have ever met in my entire life, and even though it has only been a month, what we have feels so special",
+        "I have never felt so loved and so alive before, and that is all thanks to you",
+        "Sometimes I can’t even find the right words to describe what you make me feel… but it’s something so beautiful that I just want to keep living it with you",
+        "I want you to be part of my life for a long time, and I want to choose you every single day",
+        "I want you to know that I will always be here for you, supporting you in ways no one ever has before, because you truly mean so much to me",
+        "Thank you for coming into my life"
+    ],
+    finalMessage:"I love you ❤️"
+};
+
+let current = 0;
+ 
+document.getElementById("title").textContent = data.title;
+document.getElementById("text").textContent = data.pages[current];
+
+function nextMessage() {
+    const textElement = document.getElementById("text");
+    
+    textElement.style.opacity = 0;
+
+    setTimeout(() => {
+        current++;
+
+        if (current < data.pages.length) {
+            textElement.textContent = data.pages[current];
+        } else {
+            textElement.textContent = data.finalMessage;
+            document.querySelector("button").style.display = "none";
+        }
+
+        textElement.style.opacity = 1;
+    }, 400);
+}
+
+function toggleMusic() {
+    const music = document.getElementById("bgMusic");
+    const btn = document.getElementById("musicBtn");
+
+    if (music.paused) {
+        music.play();
+        btn.textContent = "❚❚";
+    } else {
+        music.pause();
+        btn.textContent = "▶";
+    }
+}
+
+
+
+const audio = document.getElementById("audio");
+const player = document.getElementById("player");
+const button = document.querySelector(".music-player button");
+
+button.addEventListener("click", () => {
+    if (audio.paused) {
+        audio.play();
+        player.classList.add("playing");
+        button.textContent = "❚❚";
+    } else {
+        audio.pause();
+        player.classList.remove("playing");
+        button.textContent = "▶";
+    }
+});
+
+
+</script>
+
+</body>
+</html>
